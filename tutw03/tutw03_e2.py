@@ -35,7 +35,7 @@ def consolid_calc_Uv_given_Tv_series(Tv, nseries=100):
 # generate 100 Tv-values from 0 to 1.1 as in Figure 7.8, page 216
 Tv_sequence = np.linspace(0, 1.1, 100)
 
-# generate 100 Uv-values from 0 to 0.95 as in Figure 7.8, page 2016
+# generate 100 Uv-values from 0 to 0.95 as in Figure 7.8, page 216
 Uv_sequence = np.linspace(0, 0.95, 100)
 
 # because Tv_sequence and Uv_sequence are arrays and the functions
