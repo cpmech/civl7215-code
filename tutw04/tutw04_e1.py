@@ -56,32 +56,32 @@ print(f'AE total    = {AE_total:.0f} kJ/m²')
 # UAE for semipervious fine-grained soils (average)
 UAE_IP = (250 + 350) / 2.0 # kJ/m3
 
-# assuming that the crater depth is 1.5
-d_cd = 1.5 # m
+# assuming that the crater depth for the IP is 1.5
+d_cd_ip = 1.5 # m
 
 # compute the required applied energy for ironing passes
 # using again the first part of Equation 3.21,
 # but with UAE_total replaced by UAE_IP and Di replaced by crater depth
-AE_IP = UAE_IP * d_cd # kJ/m2
+AE_IP = UAE_IP * d_cd_ip # kJ/m2
 
 # message
 print('\n4 Applied energy during the ironing pass (IP)')
 print(f'Average UAE during ironing = {UAE_IP} kJ/m³')
-print(f'Crater depth               = {d_cd} m')
+print(f'Crater depth               = {d_cd_ip} m')
 print(f'AE ironing                 = {AE_IP:.0f} kJ/m²')
 
 # 5 Applied energy during the high-energy pass (HEP) #####################
 
 # multiple passes are recommended to disspate the pore pressure.
 # assuming 2 passes
-N_p = 2
+Np = 2
 
 # compute the applied energy during HEP
-AE_HEP = (AE_total - AE_IP) / N_p
+AE_HEP = (AE_total - AE_IP) / Np
 
 # message
 print('\n5 Applied energy during the high-energy pass (HEP)')
-print(f'Number of passes = {N_p}')
+print(f'Number of passes = {Np}')
 print(f'AE high-energy   = {AE_HEP:.0f} kJ/m²')
 
 # 6 Pattern, spacing and number of drops #################################
@@ -107,7 +107,7 @@ print(f'drop spacing for a square pattern  = {s} m')
 print(f'equivalment influence area         = {Ae} m²')
 print(f'Number of drops at each drop point = {Nd}')
 
-# 7 Verify allowable crater depth ########################################
+# 7 Allowed crater depth #################################################
 
 # estimate the crater depth
 d_cd_estim = 0.028 * (Nd ** 0.55) * np.sqrt(tamper_weight_tf * Hd)
@@ -116,7 +116,39 @@ d_cd_estim = 0.028 * (Nd ** 0.55) * np.sqrt(tamper_weight_tf * Hd)
 d_cd_allowed = tamper_height_m + 0.3
 
 # message
-print('\n7 Verify allowable crater depth')
-print(f'estimated crater depth = {d_cd_estim:.2f} m')
-print(f'allowed crater depth   = {d_cd_allowed:.2f} m')
-print(f'satisfactory           = {d_cd_estim <= d_cd_allowed}')
+print('\n7 Allowed crater depth')
+print(f'crater depth estimate = {d_cd_estim:.2f} m')
+print(f'allowed crater depth  = {d_cd_allowed:.2f} m')
+print(f'satisfactory          = {d_cd_estim <= d_cd_allowed}')
+
+# 8 Induced settlement estimate (method 1) ###############################
+
+# considering the landfill as an uncontrolled fill,
+# the induced settlement factor ranges from 5% to 20%
+# taking the average for the induced settlement factor
+settle_factor_ave = (5 + 20) / 2.0
+
+# estimate the possible induced settlement
+S_1 = Di * settle_factor_ave / 100.0
+
+# message
+print('\n8 Induced settlement estimate (method 1)')
+print(f'average settlement factor    = {settle_factor_ave:.2f} %')
+print(f'possible settlement estimate = {S_1:.2f} m')
+
+# 9 Induced settlement estimate (method 2) ###############################
+
+# compute the area of each crater,
+# assuming the crater diameter to be the same as the tamper diameter
+A_crater = np.pi * (tamper_diameter_m / 2.0) ** 2.0
+
+# compute the area ratio of improvement
+a_s = A_crater / Ae
+
+# estimate the settlement
+S_2 = Np * a_s * d_cd_estim
+
+print('\n9 Induced settlement estimate (method 2)')
+print(f'crater area                  = {A_crater:.2f} m²')
+print(f'area ration of improvement   = {a_s:.2f}')
+print(f'possible settlement estimate = {S_2:.2f} m')
