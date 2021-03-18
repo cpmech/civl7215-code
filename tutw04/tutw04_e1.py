@@ -1,4 +1,4 @@
-import numpy as numpy
+import numpy as np
 
 # 0 Input data
 
@@ -64,7 +64,7 @@ d_cd = 1.5 # m
 AE_IP = UAE_IP * d_cd # kJ/m2
 
 # message
-print(f'\n4 Applied energy during the ironing pass (IP)')
+print('\n4 Applied energy during the ironing pass (IP)')
 print(f'Average UAE during ironing = {UAE_IP} kJ/m³')
 print(f'Crater depth               = {d_cd} m')
 print(f'AE ironing                 = {AE_IP:.0f} kJ/m²')
@@ -79,6 +79,28 @@ N_p = 2
 AE_HEP = (AE_total - AE_IP) / N_p
 
 # message
-print(f'\nApplied energy during the high-energy pass (HEP)')
+print('\n5 Applied energy during the high-energy pass (HEP)')
 print(f'Number of passes = {N_p}')
 print(f'AE high-energy   = {AE_HEP:.0f} kJ/m²')
+
+# 6 Pattern, spacing and number of drops #################################
+
+# typical drop spacing is 1.5 to 2.5 times the tamper diameter
+# adopted drop spacing factor
+drop_spacing_factor = 2.0
+
+# compute the drop spacing
+s = drop_spacing_factor * tamper_diameter_m
+
+# compute the equivalent influence area
+Ae = s ** 2.0
+
+# compute the number of drops at each specific drop point
+# (round up and convert to integer)
+Nd = int(np.ceil( AE_HEP * Ae / Ed ))
+
+# message
+print('\n6 Pattern, spacing and number of drops')
+print(f'drop spacing for a square pattern  = {s} m')
+print(f'equivalment influence area         = {Ae} m²')
+print(f'Number of drops at each drop point = {Nd}')
