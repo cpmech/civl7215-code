@@ -28,7 +28,8 @@ Ed_tfm = (Di / nc) ** 2.0 # tf-m
 Ed = Ed_tfm * 9.81 # kJ
 
 # drop height
-Hd = Ed_tfm / tamper_weight_tf # m
+# round up the result
+Hd = np.ceil( Ed_tfm / tamper_weight_tf ) # m
 
 # message
 print('\n2 Energy per blow and drop height')
@@ -97,7 +98,8 @@ Ae = s ** 2.0
 
 # compute the number of drops at each specific drop point
 # (round up and convert to integer)
-Nd = int(np.ceil( AE_HEP * Ae / Ed ))
+Wt = tamper_weight_tf * 9.81
+Nd = int(np.ceil( AE_HEP * Ae / (Wt * Hd) ))
 
 # message
 print('\n6 Pattern, spacing and number of drops')
