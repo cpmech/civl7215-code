@@ -104,7 +104,7 @@ Nd = int(np.ceil( AE_HEP * Ae / (W_kN * Hd) ))
 # message
 print('\n6 Pattern, spacing and number of drops')
 print(f'drop spacing for a square pattern  = {s} m')
-print(f'equivalment influence area         = {Ae} m²')
+print(f'equivalent influence area          = {Ae} m²')
 print(f'Number of drops at each drop point = {Nd}')
 
 # 7 Allowed crater depth #################################################
@@ -150,5 +150,5 @@ S_2 = Np * a_s * d_cd_estim
 
 print('\n9 Induced settlement estimate (method 2)')
 print(f'crater area                  = {A_crater:.2f} m²')
-print(f'area ration of improvement   = {a_s:.2f}')
+print(f'area ratio of improvement    = {a_s:.2f}')
 print(f'possible settlement estimate = {S_2:.2f} m')
