@@ -49,7 +49,7 @@ print('\n3 Required total applied energy')
 print(f'Average UAE = {UAE_ave} kJ/m³')
 print(f'AE total    = {AE_total:.0f} kJ/m²')
 
-## 4 Applied energy during ironing passes ################################
+# 4 Applied energy during the ironing pass (IP) ##########################
 
 # assuming that the geomaterial above the landfill is fine grained
 # UAE for semipervious fine-grained soils (average)
@@ -63,7 +63,22 @@ d_cd = 1.5 # m
 # but with UAE_total replaced by UAE_IP and Di replaced by crater depth
 AE_IP = UAE_IP * d_cd # kJ/m2
 
-print(f'\n4 Applied energy during ironing passes')
+# message
+print(f'\n4 Applied energy during the ironing pass (IP)')
 print(f'Average UAE during ironing = {UAE_IP} kJ/m³')
 print(f'Crater depth               = {d_cd} m')
-print(f'AE ironing                 = {AE_IP} kJ/m²')
+print(f'AE ironing                 = {AE_IP:.0f} kJ/m²')
+
+# 5 Applied energy during the high-energy pass (HEP) #####################
+
+# multiple passes are recommended to disspate the pore pressure.
+# assuming 2 passes
+N_p = 2
+
+# compute the applied energy during HEP
+AE_HEP = (AE_total - AE_IP) / N_p
+
+# message
+print(f'\nApplied energy during the high-energy pass (HEP)')
+print(f'Number of passes = {N_p}')
+print(f'AE high-energy   = {AE_HEP:.0f} kJ/m²')
