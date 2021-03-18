@@ -98,11 +98,25 @@ Ae = s ** 2.0
 
 # compute the number of drops at each specific drop point
 # (round up and convert to integer)
-Wt = tamper_weight_tf * 9.81
-Nd = int(np.ceil( AE_HEP * Ae / (Wt * Hd) ))
+W_kN = tamper_weight_tf * 9.81
+Nd = int(np.ceil( AE_HEP * Ae / (W_kN * Hd) ))
 
 # message
 print('\n6 Pattern, spacing and number of drops')
 print(f'drop spacing for a square pattern  = {s} m')
 print(f'equivalment influence area         = {Ae} m²')
 print(f'Number of drops at each drop point = {Nd}')
+
+# 7 Verify allowable crater depth ########################################
+
+# estimate the crater depth
+d_cd_estim = 0.028 * (Nd ** 0.55) * np.sqrt(tamper_weight_tf * Hd)
+
+# allowed crater depth
+d_cd_allowed = tamper_height_m + 0.3
+
+# message
+print('\n7 Verify allowable crater depth')
+print(f'estimated crater depth = {d_cd_estim:.2f} m')
+print(f'allowed crater depth   = {d_cd_allowed:.2f} m')
+print(f'satisfactory           = {d_cd_estim <= d_cd_allowed}')
