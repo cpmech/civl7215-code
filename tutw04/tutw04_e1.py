@@ -1,6 +1,6 @@
 import numpy as np
 
-# 0 Input data
+# 0 Input data ###########################################################
 
 tamper_weight_tf = 18.2 # ton
 tamper_diameter_m = 1.5 # m
