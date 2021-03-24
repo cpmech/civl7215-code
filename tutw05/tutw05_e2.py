@@ -87,3 +87,21 @@ CRR = MSF * CRR_M75
 print(f'\nMSF = {MSF:.2f}')
 print(f'CRR = {CRR:.3f}')
 
+# 5 Liquefaction factor of safety ########################################
+
+# use Figure 2.82 to estimate rd using depth = z_middle
+rd = 0.96
+
+# set acceleration ratio, considering 0.3g / g
+accel_ratio = 0.3
+
+# compute the cyclic stress ratio CSR
+CSR = 0.65 * rd * (sigma_z0 / sigma_z0_eff) * accel_ratio
+
+# compute factor of safety against liquefaction
+FS = CRR / CSR
+
+# message
+print(f'\nCSR = {CSR:.4f}')
+print(f'FS  = {FS:.2f}')
+print(f'FS: satisfactory = {FS > 1}')
