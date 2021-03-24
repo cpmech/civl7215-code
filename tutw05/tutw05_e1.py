@@ -23,6 +23,7 @@ IC = IC_total / 3.0
 s = 1.7 # m
 
 # message
+print(f'\n1 Spacing')
 print(f'Influence coefficient IC = {IC:.2f}')
 print(f'Spacing                s = {s} m')
 
@@ -41,5 +42,6 @@ e1 = e_max - Dr * (e_max - e_min)
 S = h * (e0 - e1) / (1.0 + e0)
 
 # message
-print(f'\nFinal void ratio         e1 = {e1:.3f}')
-print(f'Average ground subsidence S = {S:.3f} m')
+print(f'\n2 Subsidence')
+print(f'Final void ratio          e1 = {e1:.3f}')
+print(f'Average ground subsidence  S = {S:.3f} m')
