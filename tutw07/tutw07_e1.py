@@ -20,7 +20,7 @@ sr3 = np.sqrt(3.0)
 
 # function to compute the area replacement ratio
 def calc_area_repl_ratio(dc, s, triangular_pattern = False):
-    C = pi / (2.0 * sr3) if triangular_pattern else  pi / 4.0
+    C = pi / (2.0 * sr3) if triangular_pattern else pi / 4.0
     return C * (dc / s) ** 2.0
 
 # 1. Collect soft clay data ##############################################
