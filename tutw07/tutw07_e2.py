@@ -96,24 +96,22 @@ Gs_col = 2.70
 D10 = 0.005 # mm
 P200 = 20 # %
 
-# porosity of stone column (np)
-np = 1.0 - gc / (gw * Gs_col)
+# porosity of stone column (por_col)
+por_col = 1.0 - gc / (gw * Gs_col)
 
 # permeability of stone column (kc)
-kc = 2.19 * (D10**1.479) * (np**6.654) / (P200**0.597)
+kc = 2.19 * (D10**1.479) * (por_col**6.654) / (P200**0.597)
 
 # message
 print(f'\n3. Collect stone columns data')
-print(f'np = {np:.3f}')
-print(f'kc = {kc:.2e} m/s')
+print(f'por_col = {por_col:.3f}')
+print(f'kc      = {kc:.2e} m/s')
 
 # 4. Compute settlement without stone columns ##################################
 
 # compute S
 S = mvs * Dsigz * h
 print(f'\n4. Compute settlement without stone columns')
-print(f'S = {S:.3f} m')
-print('or')
 print(f'S = {S*1000:.0f} mm')
 
 # 5. Compute stress reduction factor (mu) ######################################
@@ -148,16 +146,35 @@ print(f'stress reduction factor mu  = {mu:.3f}')
 # 6. Settlement with stone columns #############################################
 
 # compute settlement with stone columns
+S_composite = mu * S
+
+# message
+print(f'\n6. Settlement with stone columns')
+print(f'S (composite) = {S_composite*1000:.0f} mm')
 
 # 7. Compute modified coefficients of consolidation ############################
 
 # equivalent diameter of unit cell (de)
+de = 2.0 * s / np.sqrt(pi)
 
 # diameter ratio (Nd)
+Nd = de / dc
+
+# auxiliary multiplier
+multiplier = (1.0 + n / (Nd**2.0 - 1.0))
 
 # modified coefficient of consolidation due to vertical flow (cvm)
+cvm = cv * multiplier
 
 # modified coefficient of consolidation due to radial flow (crm)
+crm = cr * multiplier
+
+# message
+print(f'\n7. Compute modified coefficients of consolidation')
+print(f'de  = {de:.1f} m')
+print(f'Nd  = {Nd:.1f}')
+print(f'cvm = {cvm:.2e} m²/s')
+print(f'crm = {crm:.2e} m²/s')
 
 # 8. Compute time factors ######################################################
 
