@@ -124,13 +124,13 @@ a_s = calc_area_repl_ratio(dc, s, False)
 # modulus ratio of column to soil
 modulus_ratio_calc = Ec / Es
 
-# check modulus ratio (must be smaller than 20)
+# check modulus ratio (must be ≤ 20)
 modulus_ratio = 20.0 if modulus_ratio_calc > 20.0 else modulus_ratio_calc
 
 # stress concentration ratio
 n_calc = 1.0 + 0.217 * (modulus_ratio - 1.0)
 
-# check stress concentration ratio (must be smaller than 5)
+# check stress concentration ratio (must be ≤ 5)
 n = 5.0 if n_calc > 5.0 else n_calc
 
 # compute stress reduction factor (mu)
