@@ -119,9 +119,46 @@ print(f'qult = {qult:.1f} kPa')
 FS = qult / pressure
 FS_required = 2.5
 
+# message
 print(f'\n7. Check factor of safety')
 print(f'FS = {FS:.2f}')
 if FS < FS_required:
+    print(f'This design does not meet the bearing capacity requirement')
+else:
+    print('OK')
+
+# 8. Modify the design #################################################
+
+# compute the required bearing capacity
+qult_req = FS_required * pressure
+
+# compute the new area replacement ratio
+as_new_temp = (qult_req - qult_soil) / (qult_col - qult_soil)
+
+# compute and select the new spacing
+C = pi / (2.0 * sr3)
+s_new_temp = col_diameter / np.sqrt( as_new_temp / C )
+s_new = 1.2
+
+# recompute the new area replacement ratio
+as_new = calc_area_repl_ratio(col_diameter, s_new, True)
+
+# compute the new bearing capacity of the composite foundation
+qult_new = qult_col * as_new + qult_soil * (1.0 - as_new)
+
+# check the new factor of safety
+FS_new = qult_new / pressure
+
+# message
+print(f'\n8. Modify the design')
+print(f'new: qult_req           = {qult_req} kPa')
+print(f'new: a_s (temp)         = {as_new_temp:.2f}')
+print(f'new: spacing (computed) = {s_new_temp:.2f} m')
+print(f'new: spacing (selected) = {s_new:.2f} m')
+print(f'new: a_s                = {as_new:.2f}')
+print(f'new: qult               = {qult_new:.1f} kPa')
+print(f'new: FS                 = {FS_new:.2f}')
+if FS_new < FS_required:
     print(f'This design does not meet the bearing capacity requirement')
 else:
     print('OK')
