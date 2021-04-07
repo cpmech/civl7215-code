@@ -1,0 +1,8 @@
+
+1 Spacing
+Influence coefficient IC = 4.17
+Spacing                s = 1.7 m
+
+2 Subsidence
+Final void ratio          e1 = 0.580
+Average ground subsidence  S = 0.279 m

@@ -1,0 +1,46 @@
+
+1. Collect fill data
+Dsigz = 32.4 kPa
+
+2. Collect soft clay data
+mvs = 0.000675 kPa⁻¹
+cv  = 1.75e-07 m²/s
+cr  = 5.24e-07 m²/s
+
+3. Collect stone columns data
+por_col = 0.407
+kc      = 3.67e-07 m/s
+
+4. Compute settlement without stone columns
+S = 109 mm
+
+5. Compute stress reduction factor (mu)
+area repl ratio a_s         = 0.087
+modulus ratio (calc)        = 27.27
+modulus ratio (final)       = 20.00
+stress conc ratio n (calc)  = 5.12
+stress conc ratio n (final) = 5.00
+stress reduction factor mu  = 0.741
+
+6. Settlement with stone columns
+S (composite) = 81 mm
+
+7. Compute modified coefficients of consolidation
+de  = 2.7 m
+Nd  = 3.4
+cvm = 2.59e-07 m²/s
+crm = 7.74e-07 m²/s
+
+8. Compute time factors
+hdr = 5.0 m
+Tvm = 0.027
+Trm = 0.274
+
+9. Degree of consolidation
+Uvm = 0.185
+Fnd = 0.608
+Urm = 0.973
+Uvr = 97.78 %
+
+10. Consolidation settlement of composite foundation
+St = 79 mm

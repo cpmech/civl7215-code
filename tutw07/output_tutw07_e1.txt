@@ -1,0 +1,40 @@
+
+1. Collect soft clay data
+soil        cu = 20.0 kPa
+soil gamma dry = 18.0 kN/m³
+soil gamma wet = 19.0 kN/m³
+
+2. Collect footing data and compute stress
+area of the footing         = 4.0 m²
+pressure at base of footing = 100.0 kN/m²
+effective overburden stress = 18.0 kPa
+
+3. Collect granular columns data
+column diameter            = 0.8 m
+column spacing             = 1.5 m
+area replacement ratio a_s = 0.26
+
+4. Compute bearing capacity of single granular column
+qult (column) = 400.0 kPa
+
+5. Compute bearing capacity of natural ground
+shape factor sc = 1.2
+shape factor dc = 1.1
+qult (soil)     = 153.7 kPa
+
+6. Compute bearing capacity of composite foundation
+qult = 217.2 kPa
+
+7. Check factor of safety
+FS = 2.17
+This design does not meet the bearing capacity requirement
+
+8. Modify the design
+new: qult_req           = 250.0 kPa
+new: a_s (temp)         = 0.39
+new: spacing (computed) = 1.22 m
+new: spacing (selected) = 1.20 m
+new: a_s                = 0.40
+new: qult               = 253.0 kPa
+new: FS                 = 2.53
+OK

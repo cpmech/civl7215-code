@@ -1,0 +1,41 @@
+
+1 Depth of improvement and nc
+Depth of improvement = 8.2 m
+Coefficient nc       = 0.35
+
+2 Energy per blow and drop height
+Energy per blow = 549 tf-m
+Energy per blow = 5385 kJ
+Drop height     = 31.0 m
+
+3 Required total applied energy
+Average UAE = 850.0 kJ/m³
+AE total    = 6970 kJ/m²
+
+4 Applied energy during the ironing pass (IP)
+Average UAE during ironing = 300.0 kJ/m³
+Crater depth               = 1.5 m
+AE ironing                 = 450 kJ/m²
+
+5 Applied energy during the high-energy pass (HEP)
+Number of passes = 2
+AE high-energy   = 3260 kJ/m²
+
+6 Pattern, spacing and number of drops
+drop spacing for a square pattern  = 3.0 m
+equivalent influence area          = 9.0 m²
+Number of drops at each drop point = 6
+
+7 Allowed crater depth
+crater depth estimate = 1.78 m
+allowed crater depth  = 1.80 m
+satisfactory          = True
+
+8 Induced settlement estimate (method 1)
+average settlement factor    = 12.50 %
+possible settlement estimate = 1.02 m
+
+9 Induced settlement estimate (method 2)
+crater area                  = 1.77 m²
+area ratio of improvement    = 0.20
+possible settlement estimate = 0.70 m

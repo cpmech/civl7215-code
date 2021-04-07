@@ -1,0 +1,36 @@
+
+1 Estimate soil data
+gamma_dry = 19.0 kN/m³
+gamma_sat = 20.0 kN/m³
+D50       = 1.2 mm
+
+2 Effective overburden stress
+h_dry        = 1.5 [m]
+h_wet        = 4.5 [m]
+sigma_z0     = 118.5 [kPa]
+sigma_z0_eff = 74.4 [kPa]
+
+3 Relative density and SPT value
+Dr    = 27 [%]
+N1_60 = 5.8
+
+4 Cyclic resistance ratio
+MSF = 1.14
+CRR = 0.068
+
+5 Liquefaction factor of safety
+CSR              = 0.2983
+FS               = 0.23
+FS: satisfactory = False
+
+6 Vibro-compaction: improved FS, CRR and N60
+FS      (new) = 1.2
+CRR     (new) = 0.3580
+CRR_M75 (new) = 0.3143
+N60     (new) = 22.4
+
+7 Spacing for vibro-compaction improvement
+Dr (new)   = 58 %
+e0         = 0.836
+e1         = 0.675
+spacing: s = 2.5 m
