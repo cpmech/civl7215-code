@@ -38,6 +38,20 @@ def calc_area_repl_ratio(dc, s, triangular_pattern = False):
     C = pi / (2.0 * sr3) if triangular_pattern else pi / 4.0
     return C * (dc / s) ** 2.0
 
+# function to approximate the average degree of vertical consolidation (Terzaghi)
+def consolid_calc_Uv_given_Tv(Tv):
+    if Tv <= 0.217:
+        return 2.0 * np.sqrt(Tv / np.pi)
+    else:
+        a = (1.781 - Tv) / 0.933
+        return 1.0 - (10.0 ** a) / 100.0
+
+# function to approximate the degree of consolidation due to radial flow (Barron)
+def consolid_calc_Ur_given_Tr(Tr, Nd):
+    aux = Nd ** 2.0
+    Fnd = np.log(Nd) * aux / (aux - 1.0) - (3.0*aux - 1.0) / (4.0*aux)
+    return 1.0 - np.exp(-8.0 * Tr / Fnd)
+
 # 1. Collect fill data #########################################################
 
 # height of embankment and unit weight of embankment
@@ -201,14 +215,10 @@ print(f'Trm = {Trm:.3f}')
 # 9. Degree of consolidation ###################################################
 
 # degree of consolidation due to the vertical flow according to Terzaghi's (Uvm)
-Uvm = np.sqrt(4.0 * Tvm / pi)
-
-# auxiliary factor for radial consolidation (Fnd)
-NNd = Nd ** 2.0
-Fnd = np.log(Nd) * NNd / (NNd - 1.0) - (3.0*NNd - 1.0) / (4.0*NNd)
+Uvm = consolid_calc_Uv_given_Tv(Tvm)
 
 # degree of consolidation due to the radial flow according to Barron's solution (Urm)
-Urm = 1.0 - np.exp(-8.0 * Trm / Fnd)
+Urm = consolid_calc_Ur_given_Tr(Trm, Nd)
 
 # degree of consolidation due to combined vertical and radial flow (Uvr)
 Uvr = 1.0 - (1.0 - Uvm) * (1.0 - Urm)
@@ -216,7 +226,6 @@ Uvr = 1.0 - (1.0 - Uvm) * (1.0 - Urm)
 # message
 print(f'\n9. Degree of consolidation')
 print(f'Uvm = {Uvm:.3f}')
-print(f'Fnd = {Fnd:.3f}')
 print(f'Urm = {Urm:.3f}')
 print(f'Uvr = {Uvr * 100:.2f} %')
 
