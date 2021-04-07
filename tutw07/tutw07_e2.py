@@ -31,6 +31,7 @@ gw = 9.81 # kN/m³ unit weight of water
 pi = np.pi # 3.14159...
 sr2 = np.sqrt(2.0)
 sr3 = np.sqrt(3.0)
+seconds_per_day = 24.0 * 60.0 * 60.0
 
 # function to compute the area replacement ratio
 def calc_area_repl_ratio(dc, s, triangular_pattern = False):
@@ -179,23 +180,51 @@ print(f'crm = {crm:.2e} m²/s')
 # 8. Compute time factors ######################################################
 
 # convert time to seconds (t)
+t_days = 30 # days => one month after the construction of the embankment
+t = t_days * seconds_per_day # seconds
 
 # vertical drainage path (note that the underlain stiff clay has low permeability) (hdr)
+hdr = h # m
 
 # time factor due to vertical flow (Tvm)
+Tvm = cvm * t / hdr**2.0
 
 # time factor due to radial flow (Trm)
+Trm = crm * t / de**2.0
+
+# message
+print(f'\n8. Compute time factors')
+print(f'hdr = {h} m')
+print(f'Tvm = {Tvm:.3f}')
+print(f'Trm = {Trm:.3f}')
 
 # 9. Degree of consolidation ###################################################
 
 # degree of consolidation due to the vertical flow according to Terzaghi's (Uvm)
+Uvm = np.sqrt(4.0 * Tvm / pi)
 
 # auxiliary factor for radial consolidation (Fnd)
+NNd = Nd ** 2.0
+Fnd = np.log(Nd) * NNd / (NNd - 1.0) - (3.0*NNd - 1.0) / (4.0*NNd)
 
 # degree of consolidation due to the radial flow according to Barron's solution (Urm)
+Urm = 1.0 - np.exp(-8.0 * Trm / Fnd)
 
 # degree of consolidation due to combined vertical and radial flow (Uvr)
+Uvr = 1.0 - (1.0 - Uvm) * (1.0 - Urm)
+
+# message
+print(f'\n9. Degree of consolidation')
+print(f'Uvm = {Uvm:.3f}')
+print(f'Fnd = {Fnd:.3f}')
+print(f'Urm = {Urm:.3f}')
+print(f'Uvr = {Uvr * 100:.2f} %')
 
 # 10. Consolidation settlement of composite foundation #########################
 
 # compute consolidation after 1 month
+St = Uvr * S_composite
+
+# message
+print(f'\n10. Consolidation settlement of composite foundation')
+print(f'St = {St*1000:.0f} mm')
