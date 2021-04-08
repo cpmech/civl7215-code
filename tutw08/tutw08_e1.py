@@ -43,7 +43,7 @@ def anchor_unbonded_length(d, H, chi, theta, psi, strand = False):
 
 # 1. Collect input data #######################################################
 
-# input data
+# gather input data
 H = 9.0 # m (excavation depth)
 Sh = 2.0 # m (horizontal spacing)
 gamma = 18.0 # kN/m³ (natural unit weight)
