@@ -155,7 +155,7 @@ print(f'Ai_max    = {Ai_max:.1f} kN')
 print(f'60 % SMTS = {smts_60} kN ({status})')
 print(f'd_DH      = {d_DH*1000} mm')
 
-# 8. Calculate the bonded length and the total length ##########################
+# 8. Calculate the bonded and total lengths ####################################
 
 # from Table 9.2, for a Medium dense sand with SPT 20, assume
 tau_a = 400.0 # kPa
@@ -169,7 +169,7 @@ Lb2 = A2 / (pi * d_DH * tau_a)
 L2 = Lub2 + Lb2
 
 # message
-print(f'\n8. Calculate the bonded length')
+print(f'\n8. Calculate the bonded and total lengths')
 print(f'Lb1 = {Lb1:.1f} m')
 print(f'Lb2 = {Lb2:.1f} m')
 print(f'L1  = {L1:.1f} m')
