@@ -125,12 +125,52 @@ print(f'Th2 = {Th2:.1f} kN/m')
 # 6. Calculate the anchor design loads #########################################
 
 # anchor design load # 1
-M1 = Th1 * Sh / np.cos(theta)
+A1 = Th1 * Sh / np.cos(theta)
 
 # anchor design load # 2
-M2 = Th2 * Sh / np.cos(theta)
+A2 = Th2 * Sh / np.cos(theta)
 
 # message
 print(f'\n6. Calculate anchor design loads')
-print(f'M1 = {M1:.1f} kN')
-print(f'M2 = {M2:.1f} kN')
+print(f'A1 = {A1:.1f} kN')
+print(f'A2 = {A2:.1f} kN')
+
+# 7. Determine the steel bar diameter and trumpet opening size ################
+
+# max anchor load
+Ai_max = np.max([A1, A2])
+
+# selecting 26 mm bar, thus from the first line in Table 9.4
+smts_60 = 0.6 * 568.0
+
+# check 60% SMTS
+status = 'OK' if Ai_max <= smts_60 else 'not OK'
+
+# for the 26 mm bar, from Table 9.6 the trumpet opening size is
+d_DH = 64.0 / 1000.0
+
+# message
+print(f'\n7. Determine the steel bar diameter and trumpet opening size')
+print(f'Ai_max    = {Ai_max:.1f} kN')
+print(f'60 % SMTS = {smts_60} kN ({status})')
+print(f'd_DH      = {d_DH*1000} mm')
+
+# 8. Calculate the bonded length and the total length ##########################
+
+# from Table 9.2, for a Medium dense sand with SPT 20, assume
+tau_a = 400.0 # kPa
+
+# bonded and total length of anchor # 1
+Lb1 = A1 / (pi * d_DH * tau_a)
+L1 = Lub1 + Lb1
+
+# bonded and total length of anchor # 1
+Lb2 = A2 / (pi * d_DH * tau_a)
+L2 = Lub2 + Lb2
+
+# message
+print(f'\n8. Calculate the bonded length')
+print(f'Lb1 = {Lb1:.1f} m')
+print(f'Lb2 = {Lb2:.1f} m')
+print(f'L1  = {L1:.1f} m')
+print(f'L2  = {L2:.1f} m')
