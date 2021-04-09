@@ -1,0 +1,49 @@
+
+1. Collect input data
+H     = 9.0 m
+Sh    = 2.0 m
+gamma = 18.0 kN/m³
+phi   = 34.0°
+theta = 15.0°
+psi   = 62.0°
+chi   = 1.8 m
+
+2. Calculate unbonded length of anchor # 1
+x (trial)   = 4.6 m
+x (min)     = 5.6 m
+x (final)   = 5.6 m
+Lub (trial) = 5.8 m
+Lub (min)   = 3.0 m
+Lub (final) = 5.8 m
+
+3. Calculate unbonded length of anchor # 2
+x (trial)   = 3.2 m
+x (min)     = 3.2 m
+x (final)   = 3.2 m
+Lub (trial) = 3.3 m
+Lub (min)   = 3.0 m
+Lub (final) = 3.3 m
+
+4. Calculate the maximum lateral earth pressure
+Ka = 0.283
+Pa = 267.9 kN/m
+p  = 38.3 kPa
+
+5. Calculate the horizontal anchor loads
+Th1 = 134.0 kN/m
+Th2 = 112.4 kN/m
+
+6. Calculate anchor design loads
+U1 = 277.4 kN
+U2 = 232.8 kN
+
+7. Determine the steel bar diameter and trumpet opening size
+Ui_max    = 277.4 kN
+60 % SMTS = 340.8 kN (OK)
+d_DH      = 64.0 mm
+
+8. Calculate the bonded and total lengths
+Lb1 = 6.9 m
+Lb2 = 5.8 m
+L1  = 12.7 m
+L2  = 9.1 m
