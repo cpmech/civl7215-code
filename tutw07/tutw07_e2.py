@@ -200,33 +200,33 @@ t = t_days * seconds_per_day # seconds
 # vertical drainage path (note that the underlain stiff clay has low permeability) (hdr)
 hdr = h # m
 
-# time factor due to vertical flow (Tvm)
-Tvm = cvm * t / hdr**2.0
+# time factor due to vertical flow (Tv)
+Tv = cvm * t / hdr**2.0
 
-# time factor due to radial flow (Trm)
-Trm = crm * t / de**2.0
+# time factor due to radial flow (Tr)
+Tr = crm * t / de**2.0
 
 # message
 print(f'\n8. Compute time factors')
 print(f'hdr = {h} m')
-print(f'Tvm = {Tvm:.3f}')
-print(f'Trm = {Trm:.3f}')
+print(f'Tv  = {Tv:.3f}')
+print(f'Tr  = {Tr:.3f}')
 
 # 9. Degree of consolidation ###################################################
 
-# degree of consolidation due to the vertical flow according to Terzaghi's (Uvm)
-Uvm = consolid_calc_Uv_given_Tv(Tvm)
+# degree of consolidation due to the vertical flow according to Terzaghi's (Uv)
+Uv = consolid_calc_Uv_given_Tv(Tv)
 
-# degree of consolidation due to the radial flow according to Barron's solution (Urm)
-Urm = consolid_calc_Ur_given_Tr(Trm, Nd)
+# degree of consolidation due to the radial flow according to Barron's solution (Ur)
+Ur = consolid_calc_Ur_given_Tr(Tr, Nd)
 
 # degree of consolidation due to combined vertical and radial flow (Uvr)
-Uvr = 1.0 - (1.0 - Uvm) * (1.0 - Urm)
+Uvr = 1.0 - (1.0 - Uv) * (1.0 - Ur)
 
 # message
 print(f'\n9. Degree of consolidation')
-print(f'Uvm = {Uvm:.3f}')
-print(f'Urm = {Urm:.3f}')
+print(f'Uv  = {Uv:.3f}')
+print(f'Ur  = {Ur:.3f}')
 print(f'Uvr = {Uvr * 100:.2f} %')
 
 # 10. Consolidation settlement of composite foundation #########################
