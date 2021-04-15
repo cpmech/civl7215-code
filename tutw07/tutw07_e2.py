@@ -115,7 +115,7 @@ P200 = 20 # %
 por_col = 1.0 - gc / (gw * Gs_col)
 
 # permeability of stone column (kc)
-kc = 2.19 * (D10**1.479) * (por_col**6.654) / (P200**0.597)
+kc = 2.19 * (D10**1.478) * (por_col**6.654) / (P200**0.597)
 
 # message
 print(f'\n3. Collect stone columns data')

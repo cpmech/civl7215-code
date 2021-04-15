@@ -9,7 +9,7 @@ cr  = 5.24e-07 m²/s
 
 3. Collect stone columns data
 por_col = 0.407
-kc      = 3.67e-07 m/s
+kc      = 3.69e-07 m/s
 
 4. Compute settlement without stone columns
 S = 109 mm
