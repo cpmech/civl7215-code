@@ -1,0 +1,50 @@
+
+1. Collect data regarding the soil
+c     = 2.0 kPa
+phi   = 32.0 °
+gamma = 18.5 kN/m³
+
+2. Collect data regarding the excavation
+FS_glob          = 1.5
+FS_po            = 2.0
+omega (batter)   = 10.0
+beta (backslope) = 0.0
+H (height)       = 9.0
+
+3. Decide on spacing, drill hole diameter, and bond strength
+s_h   = 1.5 m
+s_v   = 1.5 m
+s_max = 1.5 m
+d_DH  = 150.0 mm
+tau_u = 125.0 kPa
+
+4. Read the reference nail length and design force from charts
+mu_po       = 0.225
+c_star      = 0.0120
+LbyH_trial  = 0.6
+tmaxs_trial = 0.16
+
+5. Apply correction factors
+C1L   = 0.82
+C2L   = 1.04
+C3L   = 1.08
+LbyH  = 0.55
+tmaxs = 0.25
+
+6. Calculate the length of nails
+L (calc)     = 5.0 m
+L (selected) = 5.0 m
+
+7. Calculate the nail forces
+Tmaxs = 91.8 kN
+T0    = 64.3 kN
+
+8. Select the nail bar diameter
+fy          = 420000 kPa
+FS_T        = 1.8
+A_nb        = 393.5 mm²
+d_bar       = 25.0 mm
+A_bar       = 510.0 mm²
+check_area  = OK
+d_total     = 75.0 mm
+check_cover = OK
