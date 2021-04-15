@@ -74,7 +74,7 @@ print(f'tmaxs_trial = {tmaxs_trial}')
 
 # 5. Apply correction factors ##################################################
 
-# read # 1 correction factors from Figure 9.32
+# read correction factors from Figure 9.32
 C1L = 0.82
 C1F = 1.47
 
