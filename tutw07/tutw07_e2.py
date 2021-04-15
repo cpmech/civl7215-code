@@ -200,33 +200,33 @@ t = t_days * seconds_per_day # seconds
 # vertical drainage path (note that the underlain stiff clay has low permeability) (hdr)
 hdr = h # m
 
-# time factor due to vertical flow (Tv)
-Tv = cvm * t / hdr**2.0
+# time factor due to vertical flow (Tvm)
+Tvm = cvm * t / hdr**2.0
 
-# time factor due to radial flow (Tr)
-Tr = crm * t / de**2.0
+# time factor due to radial flow (Trm)
+Trm = crm * t / de**2.0
 
 # message
 print(f'\n8. Compute time factors')
 print(f'hdr = {h} m')
-print(f'Tv  = {Tv:.3f}')
-print(f'Tr  = {Tr:.3f}')
+print(f'Tvm = {Tvm:.3f}')
+print(f'Trm = {Trm:.3f}')
 
 # 9. Degree of consolidation ###################################################
 
-# degree of consolidation due to the vertical flow according to Terzaghi's (Uv)
-Uv = consolid_calc_Uv_given_Tv(Tv)
+# degree of consolidation due to the vertical flow according to Terzaghi's (Uvm)
+Uvm = consolid_calc_Uv_given_Tv(Tvm)
 
-# degree of consolidation due to the radial flow according to Barron's solution (Ur)
-Ur = consolid_calc_Ur_given_Tr(Tr, Nd)
+# degree of consolidation due to the radial flow according to Barron's solution (Urm)
+Urm = consolid_calc_Ur_given_Tr(Trm, Nd)
 
 # degree of consolidation due to combined vertical and radial flow (Uvr)
-Uvr = 1.0 - (1.0 - Uv) * (1.0 - Ur)
+Uvr = 1.0 - (1.0 - Uvm) * (1.0 - Urm)
 
 # message
 print(f'\n9. Degree of consolidation')
-print(f'Uv  = {Uv:.3f}')
-print(f'Ur  = {Ur:.3f}')
+print(f'Uvm = {Uvm:.3f}')
+print(f'Urm = {Urm:.3f}')
 print(f'Uvr = {Uvr * 100:.2f} %')
 
 # 10. Consolidation settlement of composite foundation #########################
@@ -237,3 +237,38 @@ St = Uvr * S_composite
 # message
 print(f'\n10. Consolidation settlement of composite foundation')
 print(f'St = {St*1000:.0f} mm')
+
+# 11. Consolidation settlement considering smearing ############################
+
+# smear zone data
+ds = 1.0  # m (diameter of smear zone)
+pct_kv = 0.5  # (percentage of disturbed permeability w.r.t vertical k)
+ks = pct_kv * kv
+
+# constants of Han and Ye formula
+Ns, m = ds/dc, Nd**2.0 - 1
+a, b = kr/ks, kr/kc
+c1, d1 = (Nd**2.0)/m, np.log(Nd/Ns) + a * np.log(Ns) - 0.75
+c2, d2 = (Ns**2.0)/m, 1.0 - (Ns**2.0)/(4.0*Nd**2.0)
+c3, d3 = 1/m, 1.0 - 1.0/(4.0*Nd**2.0)
+c4, d4 = 32.0/(np.pi**2.0), (hdr/dc)**2.0
+
+# consolidation due to radial flow (with smearing)
+Fnd_smear = c1*d1 + c2*d2*(1.0-a) + c3*d3*a + c4*d4*b
+Urm_smear = 1.0 - np.exp(-8.0*Trm/Fnd_smear)
+Uvr_smear = 1.0 - (1.0 - Uvm) * (1.0 - Urm_smear)
+St_smear = Uvr_smear * S_composite
+
+# message
+print(f'\n11. Consolidation settlement considering smearing')
+print(f'ks          = {ks} m/s')
+print(f'Ns, m       = {Ns}, {m:.1f}')
+print(f'a,  b       = {a:.1f}, {b:.5f}')
+print(f'c1, d1      = {c1:.3f}, {d1:.3f}')
+print(f'c2, d2      = {c2:.3f}, {d2:.3f}')
+print(f'c3, d3      = {c3:.3f}, {d3:.3f}')
+print(f'c4, d4      = {c4:.3f}, {d4:.1f}')
+print(f'Fnd (smear) = {Fnd_smear:.3f}')
+print(f'Urm (smear) = {Urm_smear:.3f}')
+print(f'Uvm (smear) = {Uvr_smear*100:.2f} %')
+print(f'St (smear)  = {St_smear*1000:.1f} mm')

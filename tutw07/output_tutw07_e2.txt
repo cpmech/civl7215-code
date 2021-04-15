@@ -33,13 +33,26 @@ crm = 7.74e-07 m²/s
 
 8. Compute time factors
 hdr = 5.0 m
-Tv  = 0.027
-Tr  = 0.274
+Tvm = 0.027
+Trm = 0.274
 
 9. Degree of consolidation
-Uv  = 0.185
-Ur  = 0.973
+Uvm = 0.185
+Urm = 0.973
 Uvr = 97.78 %
 
 10. Consolidation settlement of composite foundation
 St = 79 mm
+
+11. Consolidation settlement considering smearing
+ks          = 5.8e-10 m/s
+Ns, m       = 1.25, 10.5
+a,  b       = 6.0, 0.00941
+c1, d1      = 1.096, 1.581
+c2, d2      = 0.149, 0.966
+c3, d3      = 0.096, 0.978
+c4, d4      = 3.242, 39.1
+Fnd (smear) = 2.764
+Urm (smear) = 0.547
+Uvm (smear) = 63.07 %
+St (smear)  = 51.1 mm
