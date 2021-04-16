@@ -21,8 +21,8 @@ tau_u = 125.0 kPa
 4. Read the reference nail length and design force from charts
 mu_po       = 0.225
 c_star      = 0.0120
-LbyH_trial  = 0.6
-tmaxs_trial = 0.16
+LbyH_chart  = 0.6
+tmaxs_chart = 0.16
 
 5. Apply correction factors
 C1L   = 0.82
