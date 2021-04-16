@@ -62,15 +62,15 @@ mu_po = tau_u * d_DH / (FS_po * gamma * s_h * s_v)
 c_star = c / (gamma * H)
 
 # read (L/H) and tmaxs from Figure 9.30
-LbyH_trial = 0.6
-tmaxs_trial = 0.16
+LbyH_chart = 0.6
+tmaxs_chart = 0.16
 
 # message
 print(f'\n4. Read the reference nail length and design force from charts')
 print(f'mu_po       = {mu_po:.3f}')
 print(f'c_star      = {c_star:.4f}')
-print(f'LbyH_trial  = {LbyH_trial}')
-print(f'tmaxs_trial = {tmaxs_trial}')
+print(f'LbyH_chart  = {LbyH_chart}')
+print(f'tmaxs_chart = {tmaxs_chart}')
 
 # 5. Apply correction factors ##################################################
 
@@ -84,8 +84,8 @@ C3L = np.max([1.0, 0.52*FS_glob + 0.3])
 C2F = C2L
 
 # calculate (L/H) and (tmaxs) corrected
-LbyH = C1L * C2L * C3L * LbyH_trial
-tmaxs = C1F * C2F * tmaxs_trial
+LbyH = C1L * C2L * C3L * LbyH_chart
+tmaxs = C1F * C2F * tmaxs_chart
 
 # message
 print(f'\n5. Apply correction factors')
