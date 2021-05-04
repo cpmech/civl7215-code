@@ -477,6 +477,38 @@ print(f'post-construction settlement         = {S_pc:.2f} m')
 # 18. Plots ########################################################################################
 
 # Plot the fill height versus time
+T = np.array([t1ini, t1fin, t1wait, t2fin, t2wait]) / secs_per_day
+H = np.array([0.0, H1, H1, H1+H2, H1+H2])
+plt.plot(T, H, 'b-o')
+plt.xlabel('time [days]')
+plt.ylabel('fill height [m]')
+plt.grid(linestyle='--',color='grey')
+plt.savefig('plot_fill-height-vs-time.png')
+
 # Plot the settlement versus time
+S = np.array([ 0.0, S_t1fin, S_t1wait, S_t2fin, S_t2wait])
+plt.clf()
+plt.plot(T, S, 'r-o')
+plt.xlabel('time [days]')
+plt.ylabel('settlement [m]')
+plt.grid(linestyle='--',color='grey')
+plt.gca().invert_yaxis()
+plt.savefig('plot_settlement-vs-time.png')
+
 # Plot the excess pore water pressure due to the first embankment
+U1 = np.array([u1_t1ini, u1_t1fin, u1_t1wait, u1_t2fin, u1_t2wait])
+plt.clf()
+plt.plot(T, U1, 'g-o')
+plt.xlabel('time [days]')
+plt.ylabel('u1 [kPa]')
+plt.grid(linestyle='--',color='grey')
+plt.savefig('plot_u1-vs-time.png')
+
 # Plot the excess pore water pressure due to the second embankment
+U2 = np.array([ 0.0, 0.0, u2_t2ini, u2_t2fin, u2_t2wait])
+plt.clf()
+plt.plot(T, U2, 'm-o')
+plt.xlabel('time [days]')
+plt.ylabel('u2 [kPa]')
+plt.grid(linestyle='--',color='grey')
+plt.savefig('plot_u2-vs-time.png')
