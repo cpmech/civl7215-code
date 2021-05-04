@@ -66,6 +66,7 @@ gamma_fill = 19.7 # kN/m³
 c_fill = 0.0 # kPa
 phi_fill = 30.0 # °
 
+# message
 print(f'\n3. Embankment (fill) data')
 print(f'H     = {H_fill} m')
 print(f'gamma = {gamma_fill} kN/m³')
@@ -75,10 +76,27 @@ print(f'phi   = {phi_fill} °')
 # 4. Pre-fabricated drains (PVD) ###################################################################
 
 # Width (b) and thickness (tg)
+b_drain = 100.0 # mm
+tg_drain = 4.0 # mm
+
 # Spacing and discharge capacity (Qc)
+spacing_drain = 1.0 # m (equilateral triangular pattern)
+Qc_drain = 0.000109 # m3/s
+
 # Compute the equivalent diameter of drain (dc)
+dc_drain = (b_drain/1000.0 + tg_drain/1000.0) / 2
+
 # Compute the equivalent influence diameter (de)
+de_drain = 1.06 * spacing_drain
+
 # Compute the diameter ratio (Nd)
+Nd_drain = de_drain / dc_drain
+
+# message
+print(f'\n4. Pre-fabricated drains (PVD)')
+print(f'equivalent diameter of drain:  dc = {dc_drain:.4f} m')
+print(f'equivalent influence diameter: de = {de_drain} m')
+print(f'diameter ratio:                Nd = {Nd_drain:.2f}')
 
 # 5. Geotechnical problem ##########################################################################
 
