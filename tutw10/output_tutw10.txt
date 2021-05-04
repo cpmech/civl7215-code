@@ -1,0 +1,126 @@
+
+1. Soil foundation data
+H      = 6.0 m
+OCR    = 1.0 [-]
+cu     = 24.0 kPa
+cv     = 1.8e-08 m²/s
+cr     = 4.5e-08 m²/s
+Cc     = 0.8 [-]
+Ca     = 0.032 [-]
+e0     = 1.0 [-]
+gamma  = 18.1 kN/m³
+egamma = 8.3 kN/m³
+mv     = 0.001204 kPa⁻¹
+kv     = 2.124e-10 m/s
+kr     = 5.31e-10 m/s
+
+2. Embankment (fill) data
+H     = 6.0 m
+gamma = 19.7 kN/m³
+c     = 0.0 kPa
+phi   = 30.0 °
+
+3. Pre-fabricated drains (PVD)
+dc = 0.0520 m
+de = 1.06 m
+Nd = 20.38
+
+4. Geotechnical problem
+FS           = 1.3 [-]
+hdr          = 6.0 m
+z            = 3.0 m
+construction = 0.042857 m/day
+bv           = 5.00e-10 [-]
+br           = 4.00e-08 [-]
+Fm           = 2.27
+
+5. Functions
+done
+
+6. Maximum fill height
+allowed p   = 94.89 kPa
+Hmax (calc) = 4.82 m
+Hmax        = 4.5 m
+
+7. Total primary settlement
+desigz    = 88.65 kPa
+esigz_ini = 24.90 kPa
+esigz_fin = 113.55 kPa
+S_total   = 1.58 m
+
+8. Data for the first loading stage
+height of fill, H1    = 4.5 m
+construction time     = 105.0 days
+time at the beginning = 0.0 days
+time at the end of    = 105.0 days
+
+9. Consolidation settlement at the end of construction (Stage 1)
+t1fin                    = 105.0 days
+Uv    of stage 1 @ t1fin = 5.37 %
+Ur    of stage 1 @ t1fin = 47.35 %
+Uvr   of stage 1 @ t1fin = 50.18 %
+u1 due to load 1 @ t1ini = 88.65 kPa
+u1 due to load 1 @ t1fin = 44.16 kPa
+S  due to load 1 @ t1fin = 0.79 m
+
+10. Consolidation settlement at the end of the waiting period (Stage 1)
+t1wait                    = 178.0 days
+Uv    of stage 1 @ t1wait = 8.31 %
+Ur    of stage 1 @ t1wait = 78.43 %
+Uvr   of stage 1 @ t1wait = 80.22 %
+u1 due to load 1 @ t1wait = 17.54 kPa
+S  due to load 1 @ t1wait = 1.27 m
+
+11. Strength gain
+dcu due to stage 1 @ t1_wait = 17.78 kPa
+
+12. Revised maximum fill height
+allowed p   = 165.19 kPa
+Hmax (calc) = 8.39 m
+Hmax        = 8.0 m
+
+13. Revised total primary settlement
+desigz    = 157.60 kPa
+esigz_ini = 24.90 kPa
+esigz_fin = 182.50 kPa
+S_total   = 2.08 m
+
+14. Data for the second loading stage
+height of fill, H2    = 3.5 m
+construction time     = 82.0 days
+time at the beginning = 178.0 days
+time at the end of    = 260.0 days
+
+15. Consolidation settlement at the end of construction (Stage 2)
+t2fin                        = 260.0 days
+Uv        of stage 1 @ t2fin = 10.68 %
+Ur        of stage 1 @ t2fin = 92.08 %
+Uvr       of stage 1 @ t2fin = 92.93 %
+Uv        of stage 2 @ t2fin = 4.75 %
+Ur        of stage 2 @ t2fin = 39.41 %
+Uvr       of stage 2 @ t2fin = 42.29 %
+u1     due to load 1 @ t2ini = 6.27 kPa
+u2     due to load 2 @ t2ini = 68.95 kPa
+u2     due to load 2 @ t2fin = 39.79 kPa
+Uvr of stage 1 and 2 @ t2fin = 70.77 %
+S   of stage 1 and 2 @ t2fin = 1.47 m
+
+16. Consolidation settlement at the end of the waiting period (Stage 2)
+t2wait                        = 365.0 days
+Uv        of stage 1 @ t2wait = 13.11 %
+Ur        of stage 1 @ t2wait = 97.81 %
+Uvr       of stage 1 @ t2wait = 98.09 %
+Uv        of stage 2 @ t2wait = 8.96 %
+Ur        of stage 2 @ t2wait = 83.21 %
+Uvr       of stage 2 @ t2wait = 84.71 %
+u1     due to load 1 @ t2wait = 1.69 kPa
+u2     due to load 2 @ t2wait = 10.54 kPa
+Uvr of stage 1 and 2 @ t2wait = 92.24 %
+S   of stage 1 and 2 @ t2wait = 1.92 m
+
+17. Post-construction settlement
+remaining settlement                 = 0.16 m
+time for 99% consolidation           = 365 days
+settlement due to traffic            = 0.07 m
+secondary settlement after 100 years = 0.19 m
+post-construction settlement         = 0.42 m
