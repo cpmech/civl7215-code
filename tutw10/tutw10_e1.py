@@ -442,10 +442,37 @@ print(f'S   of stage 1 and 2 @ t2wait = {S_t2wait:.2f} m')
 # 17. Post-construction settlement #################################################################
 
 # Compute the remaining settlement
+S_rem = S_total - S_t2wait
+
 # Find t corresponding to 99% consolidation (Uvr = 0.99)
+def res99(t):
+    Uvr_fixed = 0.99
+    Uv = calc_Uv(t)
+    Ur = calc_Ur(t)
+    return Uvr_fixed - 1.0 + (1.0-Uv) * (1.0-Ur)
+tverylong = 10000 * secs_per_day
+t99 = opt.brentq(res99, 0, tverylong)
+t99_days = np.ceil(t99 / secs_per_day)
+
 # Compute the settlement due to traffic loading
+dsig_traf = 12.0 # kPa
+esigz_traf = esigz_ini + dsigz + dsig_traf
+S_traf = H_soil * Cc_soil * np.log10(esigz_traf / esigz_ini) / (1.0 + e0_soil) - S_total
+
 # Compute the secondary settlement
+tend_days = 100 * 365.0 # days
+S_sec = H_soil * Ca_soil * np.log10(tend_days / t99_days) / (1.0 + e0_soil)
+
 # Compute the post-construction settlement
+S_pc = S_rem + S_traf + S_sec
+
+# message
+print(f'\n17. Post-construction settlement')
+print(f'remaining settlement                 = {S_rem:.2f} m')
+print(f'time for 99% consolidation           = {t99_days:.0f} days')
+print(f'settlement due to traffic            = {S_traf:.2f} m')
+print(f'secondary settlement after 100 years = {S_sec:.2f} m')
+print(f'post-construction settlement         = {S_pc:.2f} m')
  
 # 18. Plots ########################################################################################
 
