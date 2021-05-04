@@ -101,11 +101,35 @@ print(f'diameter ratio:                Nd = {Nd_drain:.2f}')
 # 5. Geotechnical problem ##########################################################################
 
 # Factor of safety for bearing capacity
+FS_bearing_cap = 1.3 # [-]
+
 # Drainage length (hdr)
+hdr_soil = 6.0 # m (thickness of clay layer)
+
 # Depth of middle of the clay layer
+z_soil = 3.0 # m (middle of clay layer)
+
 # Assume construction rate (e.g. 0.3 m / week)
+construct_rate_w = 0.3 # m/week
+construct_rate = construct_rate_w / 7.0 # m/day
+
 # Compute auxiliary coefficients bv and br
+bv = cv_soil / (hdr_soil**2)
+br = cr_soil / (de_drain**2)
+
 # Compute the Fm(Nd) coefficient for the radial flow equation
+aux = pi * z_soil * (2*hdr_soil - z_soil) * kr_soil / Qc_drain
+Fm = np.log(Nd_drain) - 0.75 + aux
+
+# message
+print(f'\n5. Geotechnical problem')
+print(f'FS           = {FS_bearing_cap} [-]')
+print(f'hdr          = {hdr_soil} m')
+print(f'z            = {z_soil} m')
+print(f'construction = {construct_rate:.6f} m/day')
+print(f'bv           = {bv:.2e} [-]')
+print(f'br           = {br:.2e} [-]')
+print(f'Fm           = {Fm:.2f}')
 
 # 6. Functions #####################################################################################
 
