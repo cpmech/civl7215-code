@@ -176,8 +176,25 @@ print(f'Hmax        = {H_max} m')
 # 8. Total primary settlement ######################################################################
 
 # Compute the total stress increment
+dsigz = gamma_fill * H_max # kPa
+
+# Set the effective stress increment
+desigz = dsigz # delta effective vertical stress
+
 # Compute the initial and final effective stresses at the mid-depth of the soft soil
+esigz_ini = egamma_soil * z_soil
+esigz_fin = esigz_ini + desigz
+
 # Compute the total primary settlement
+S_total = H_soil * Cc_soil * np.log10(esigz_fin / esigz_ini) / (1.0 + e0_soil)
+
+# message
+print(f'\n8. Total primary settlement')
+print(f'dsigz     = {dsigz:.2f} kPa')
+print(f'desigz    = {desigz:.2f} kPa')
+print(f'esigz_ini = {esigz_ini:.2f} kPa')
+print(f'esigz_fin = {esigz_fin:.2f} kPa')
+print(f'S_total   = {S_total:.2f} m')
  
 # 9. Data for the first loading stage ##############################################################
 
