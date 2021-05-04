@@ -142,7 +142,7 @@ def calc_Uv(tau):
 # Define a function to calculate Ur
 def calc_Ur(tau):
     Tr = br * tau
-    return 1.0 - np.exp(-8.0*Tr/auxFm)
+    return 1.0 - np.exp(-8.0*Tr/Fm)
 
 # Define a function to calculate Uvr
 def calc_Uvr(Uv, Ur):
@@ -215,16 +215,34 @@ tau1_t1fin = t1fin - dt1
 
 # message
 print(f'\n9. Data for the first loading stage')
-print(f'height of fill, H1 = {H1} m')
-print(f'construction time for the first stage = {period1} days')
-print(f'time at beginning of construction of stage 1 = {t1ini/secs_per_day} days')
-print(f'time at the end of construction of stage 1 = {t1fin/secs_per_day} days')
+print(f'height of fill        = {H1} m')
+print(f'construction time     = {period1} days')
+print(f'time at the beginning = {t1ini/secs_per_day} days')
+print(f'time at the end of    = {t1fin/secs_per_day} days')
 
 # 10. Consolidation settlement at the end of construction (Stage 1) ################################
 
 # Compute the degrees of consolidation due to Stage 1 at the end of construction of Stage 1
+Uv1_t1fin = calc_Uv(tau1_t1fin)
+Ur1_t1fin = calc_Ur(tau1_t1fin)
+Uvr1_t1fin = calc_Uvr(Uv1_t1fin, Ur1_t1fin)
+
 # Compute the excess pore water pressure due to Stage 1 at the end of construction of Stage 1
+u1_ini = H1 * gamma_fill
+u1_t1fin = u1_ini * (1.0 - Uvr1_t1fin)
+
 # Compute the consolidation settlement at the end of construction of Stage 1
+S_t1fin = Uvr1_t1fin * S_total
+
+# message
+print(f'\n10. Consolidation settlement at the end of construction (Stage 1)')
+print(f'Uv  @ t1fin = {Uv1_t1fin*100:.2f} %')
+print(f'Ur  @ t1fin = {Ur1_t1fin*100:.2f} %')
+print(f'Uvr @ t1fin = {Uvr1_t1fin*100:.2f} %')
+print(f'u1  @ t1ini = {u1_ini:.2f} kPa')
+print(f'u1  @ t1fin = {u1_t1fin:.2f} kPa')
+print(f'S   @ t1fin = {S_t1fin:.2f} m')
+
 
 # 11. Consolidation settlement at the end of the waiting period (Stage 1) ##########################
 
