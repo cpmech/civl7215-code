@@ -199,9 +199,26 @@ print(f'S_total   = {S_total:.2f} m')
 # 9. Data for the first loading stage ##############################################################
 
 # Choose height of the fill for the first loading stage
+H1 = 4.5 # m
+
 # Compute the time period for the construction of the first stage
+period1_calc = np.ceil(H1 / construct_rate) # day
+
 # Round-up the number of days
+period1 = np.ceil(period1_calc) # day
+
 # Compute the time at the beginning and at the end of construction, and the shift-time for Stage 1
+t1ini = 0.0
+t1fin = t1ini + period1 * secs_per_day
+dt1 = (t1ini + t1fin) / 2.0
+tau1_t1fin = t1fin - dt1
+
+# message
+print(f'\n9. Data for the first loading stage')
+print(f'height of fill, H1 = {H1} m')
+print(f'construction time for the first stage = {period1} days')
+print(f'time at beginning of construction of stage 1 = {t1ini/secs_per_day} days')
+print(f'time at the end of construction of stage 1 = {t1fin/secs_per_day} days')
 
 # 10. Consolidation settlement at the end of construction (Stage 1) ################################
 
