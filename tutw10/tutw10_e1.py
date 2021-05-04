@@ -202,20 +202,20 @@ print(f'S_total   = {S_total:.2f} m')
 H1 = 4.5 # m
 
 # Compute the time period for the construction of the first stage
-period1_calc = np.ceil(H1 / construct_rate) # day
+period1_calc = H1 / construct_rate # day
 
 # Round-up the number of days
 period1 = np.ceil(period1_calc) # day
 
 # Compute the time at the beginning and at the end of construction, and the shift-time for Stage 1
-t1ini = 0.0
+t1ini = 0.0 # secs
 t1fin = t1ini + period1 * secs_per_day # secs
 dt1 = (t1ini + t1fin) / 2.0 # secs
 tau1_t1fin = t1fin - dt1 # secs
 
 # message
 print(f'\n9. Data for the first loading stage')
-print(f'height of fill        = {H1} m')
+print(f'height of fill, H1    = {H1} m')
 print(f'construction time     = {period1} days')
 print(f'time at the beginning = {t1ini/secs_per_day} days')
 print(f'time at the end of    = {t1fin/secs_per_day} days')
@@ -327,9 +327,26 @@ print(f'S_total   = {S_total:.2f} m')
 # 15. Data for the second loading stage ############################################################
 
 # Choose height of the fill for the second loading stage
+H2 = H_max - H1
+
 # Compute the time period for the construction of the second stage
+period2_calc = H2 / construct_rate # day
+
 # Round-up the number of days
+period2 = np.ceil(period2_calc) # day
+
 # Compute the time at the beginning and at the end of construction, and the shift-time for Stage 2
+t2ini = t1wait # secs
+t2fin = t2ini + period2 * secs_per_day # secs
+dt2 = (t2ini + t2fin) / 2.0 # secs
+tau2_t2fin = t2fin - dt2 # secs
+
+# message
+print(f'\n15. Data for the second loading stage')
+print(f'height of fill, H2    = {H2} m')
+print(f'construction time     = {period2} days')
+print(f'time at the beginning = {t2ini/secs_per_day} days')
+print(f'time at the end of    = {t2fin/secs_per_day} days')
  
 # 17. Consolidation settlement at the end of construction (Stage 2) ################################
 
