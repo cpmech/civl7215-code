@@ -133,14 +133,45 @@ print(f'Fm           = {Fm:.2f}')
 
 # 6. Functions #####################################################################################
 
-# Define functions to calculate Uv, Ur, and Uvr
+# Define a function to calculate Uv
+def calc_Uv(tau):
+    Tv = bv * tau
+    if Tv <= 0.217: return 2.0 * np.sqrt(Tv / np.pi)
+    return 1.0 - 10.0**(-(Tv + 0.085)/0.933)
+
+# Define a function to calculate Ur
+def calc_Ur(tau):
+    Tr = br * tau
+    return 1.0 - np.exp(-8.0*Tr/auxFm)
+
+# Define a function to calculate Uvr
+def calc_Uvr(Uv, Ur):
+    return 1.0 - (1.0 - Uv) * (1.0 - Ur)
+
 # Define a function to calculate the residual from Uvr and the fixed 80% value
+def calc_resid_one(tau):
+    Uvr_fixed = 0.8
+    Uv = calc_Uv(tau)
+    Ur = calc_Ur(tau)
+    return Uvr_fixed - 1.0 + (1.0-Uv) * (1.0-Ur)
+calc_resid_vector = np.vectorize(calc_resid_one)
 
 # 7. Maximum fill height ###########################################################################
 
 # Compute the allowed pressure based on the foundation undrained strength
+p_allowed = 5.14 * cu_soil / FS_bearing_cap
+
 # Compute the maximum allowed height of fill
+H_max_calc = p_allowed / gamma_fill
+
 # Round down maximum fill height
+H_max = 4.5 # m
+
+# message
+print(f'\n7. Maximum fill height')
+print(f'allowed p   = {p_allowed:.2f} kPa')
+print(f'Hmax (calc) = {H_max_calc:.2f} m')
+print(f'Hmax        = {H_max} m')
  
 # 8. Total primary settlement ######################################################################
 
