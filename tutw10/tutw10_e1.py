@@ -231,18 +231,19 @@ Ur1_t1fin = calc_Ur(tau1_t1fin)
 Uvr1_t1fin = calc_Uvr(Uv1_t1fin, Ur1_t1fin)
 
 # Compute the excess pore water pressure due to Stage 1 at the end of construction of Stage 1
-u1_ini = H1 * gamma_fill
-u1_t1fin = u1_ini * (1.0 - Uvr1_t1fin)
+u1_t1ini = H1 * gamma_fill
+u1_t1fin = u1_t1ini * (1.0 - Uvr1_t1fin)
 
 # Compute the consolidation settlement at the end of construction of Stage 1
 S_t1fin = Uvr1_t1fin * S_total
 
 # message
 print(f'\n9. Consolidation settlement at the end of construction (Stage 1)')
+print(f't1fin                    = {t1fin/secs_per_day} days')
 print(f'Uv    of stage 1 @ t1fin = {Uv1_t1fin*100:.2f} %')
 print(f'Ur    of stage 1 @ t1fin = {Ur1_t1fin*100:.2f} %')
 print(f'Uvr   of stage 1 @ t1fin = {Uvr1_t1fin*100:.2f} %')
-print(f'u1 due to load 1 @ t1ini = {u1_ini:.2f} kPa')
+print(f'u1 due to load 1 @ t1ini = {u1_t1ini:.2f} kPa')
 print(f'u1 due to load 1 @ t1fin = {u1_t1fin:.2f} kPa')
 print(f'S  due to load 1 @ t1fin = {S_t1fin:.2f} m')
 
@@ -266,14 +267,14 @@ Ur1_t1wait = calc_Ur(tau1_t1wait)
 Uvr1_t1wait = calc_Uvr(Uv1_t1wait, Ur1_t1wait)
 
 # Compute the excess pore-water pressure
-u1_t1wait = u1_ini * (1.0 - Uvr1_t1wait)
+u1_t1wait = u1_t1ini * (1.0 - Uvr1_t1wait)
 
 # Compute the consolidation settlement
 S_t1wait = Uvr1_t1wait * S_total
 
 # message
 print(f'\n10. Consolidation settlement at the end of the waiting period (Stage 1)')
-print(f't1wait                    = {t1wait_days} days')
+print(f't1wait                    = {t1wait/secs_per_day} days')
 print(f'Uv    of stage 1 @ t1wait = {Uv1_t1wait*100:.2f} %')
 print(f'Ur    of stage 1 @ t1wait = {Ur1_t1wait*100:.2f} %')
 print(f'Uvr   of stage 1 @ t1wait = {Uvr1_t1wait*100:.2f} %')
@@ -353,11 +354,45 @@ print(f'time at the end of    = {t2fin/secs_per_day} days')
 # 15. Consolidation settlement at the end of construction (Stage 2) ################################
 
 # Compute the degrees of consolidation due to Stage 1 at the end of construction of Stage 2
+tau1_t2fin = t2fin - dt1
+Uv1_t2fin = calc_Uv(tau1_t2fin)
+Ur1_t2fin = calc_Ur(tau1_t2fin)
+Uvr1_t2fin = calc_Uvr(Uv1_t2fin, Ur1_t2fin)
+
 # Compute the degrees of consolidation due to Stage 2 at the end of construction of Stage 2
+Uv2_t2fin = calc_Uv(tau2_t2fin)
+Ur2_t2fin = calc_Ur(tau2_t2fin)
+Uvr2_t2fin = calc_Uvr(Uv2_t2fin, Ur2_t2fin)
+
 # Compute the excess pore water pressure due to Stage 1 at the end of construction of Stage 2
+u1_t2fin = u1_t1ini * (1.0 - Uvr1_t2fin)
+
 # Compute the excess pore water pressure due Stage 2 at the end of construction of Stage 2
+u2_t2ini = H2 * gamma_fill
+u2_t2fin = u2_t2ini * (1.0 - Uvr2_t2fin)
+
 # Compute the overall degree of consolidation due to Stage 1 and Stage 2
+sum_uini = u1_t1ini + u2_t2ini
+sum_ut2fin = u1_t2fin + u2_t2fin
+Uvr_t2fin = 1.0 - sum_ut2fin / sum_uini
+
 # Compute the consolidation settlement at the end of construction of Stage 2
+S_t2fin = Uvr_t2fin * S_total
+
+# message
+print(f'\n15. Consolidation settlement at the end of construction (Stage 2)')
+print(f't2fin                        = {t2fin/secs_per_day} days')
+print(f'Uv        of stage 1 @ t2fin = {Uv1_t2fin*100:.2f} %')
+print(f'Ur        of stage 1 @ t2fin = {Ur1_t2fin*100:.2f} %')
+print(f'Uvr       of stage 1 @ t2fin = {Uvr1_t2fin*100:.2f} %')
+print(f'Uv        of stage 2 @ t2fin = {Uv2_t2fin*100:.2f} %')
+print(f'Ur        of stage 2 @ t2fin = {Ur2_t2fin*100:.2f} %')
+print(f'Uvr       of stage 2 @ t2fin = {Uvr2_t2fin*100:.2f} %')
+print(f'u1     due to load 1 @ t2ini = {u1_t2fin:.2f} kPa')
+print(f'u2     due to load 2 @ t2ini = {u2_t2ini:.2f} kPa')
+print(f'u2     due to load 2 @ t2fin = {u2_t2fin:.2f} kPa')
+print(f'Uvr of stage 1 and 2 @ t2fin = {Uvr_t2fin*100:.2f} %')
+print(f'S   of stage 1 and 2 @ t2fin = {S_t2fin:.2f} m')
 
 # 16. Consolidation settlement at the end of the waiting period (Stage 2) ##########################
 
