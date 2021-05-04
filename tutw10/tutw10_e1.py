@@ -209,9 +209,9 @@ period1 = np.ceil(period1_calc) # day
 
 # Compute the time at the beginning and at the end of construction, and the shift-time for Stage 1
 t1ini = 0.0
-t1fin = t1ini + period1 * secs_per_day
-dt1 = (t1ini + t1fin) / 2.0
-tau1_t1fin = t1fin - dt1
+t1fin = t1ini + period1 * secs_per_day # secs
+dt1 = (t1ini + t1fin) / 2.0 # secs
+tau1_t1fin = t1fin - dt1 # secs
 
 # message
 print(f'\n9. Data for the first loading stage')
@@ -236,22 +236,46 @@ S_t1fin = Uvr1_t1fin * S_total
 
 # message
 print(f'\n10. Consolidation settlement at the end of construction (Stage 1)')
-print(f'Uv  @ t1fin = {Uv1_t1fin*100:.2f} %')
-print(f'Ur  @ t1fin = {Ur1_t1fin*100:.2f} %')
-print(f'Uvr @ t1fin = {Uvr1_t1fin*100:.2f} %')
-print(f'u1  @ t1ini = {u1_ini:.2f} kPa')
-print(f'u1  @ t1fin = {u1_t1fin:.2f} kPa')
-print(f'S   @ t1fin = {S_t1fin:.2f} m')
-
+print(f'Uv  of stage 1 @ t1fin = {Uv1_t1fin*100:.2f} %')
+print(f'Ur  of stage 1 @ t1fin = {Ur1_t1fin*100:.2f} %')
+print(f'Uvr of stage 1 @ t1fin = {Uvr1_t1fin*100:.2f} %')
+print(f'u1             @ t1ini = {u1_ini:.2f} kPa')
+print(f'u1             @ t1fin = {u1_t1fin:.2f} kPa')
+print(f'S              @ t1fin = {S_t1fin:.2f} m')
 
 # 11. Consolidation settlement at the end of the waiting period (Stage 1) ##########################
 
-# Find $\tau$ such that 80% consolidation (Uvr = 0.8) has occurred
-# Compute time $t$ from the the time-shift $\tau$
+# Find tau such that 80% consolidation (Uvr = 0.8) has occurred
+tau1_tlong = tau1_t1fin + 365 * secs_per_day
+tau1_t1wait = opt.brentq(calc_resid_vector, tau1_t1fin, tau1_tlong)
+
+# Compute time t from the the time-shift tau
+t1wait_calc = tau1_t1wait + dt1 # secs
+
 # Round-up the number of days
+t1wait_days = np.ceil(t1wait_calc/secs_per_day) # days
+t1wait = t1wait_days * secs_per_day # secs
+
 # Check if the overall degree of consolidation is close to 80%
+tau1_t1wait = t1wait - dt1
+Uv1_t1wait = calc_Uv(tau1_t1wait)
+Ur1_t1wait = calc_Ur(tau1_t1wait)
+Uvr1_t1wait = calc_Uvr(Uv1_t1wait, Ur1_t1wait)
+
 # Compute the excess pore-water pressure
+u1_t1wait = u1_ini * (1.0 - Uvr1_t1wait)
+
 # Compute the consolidation settlement
+S_t1wait = Uvr1_t1wait * S_total
+
+# message
+print(f'\n11. Consolidation settlement at the end of the waiting period (Stage 1)')
+print(f't1wait                     = {t1wait_days} days')
+print(f'Uv  of stage 1 @ t1_wait   = {Uv1_t1wait*100:.2f} %')
+print(f'Ur  of stage 1 @ t1_wait   = {Ur1_t1wait*100:.2f} %')
+print(f'Uvr of stage 1 @ t1_wait   = {Uvr1_t1wait*100:.2f} %')
+print(f'u1 due to stage 1 @ t1wait = {u1_t1wait:.2f} kPa')
+print(f'S  due to stage 1 @ t1wait = {S_t1wait:.2f} m')
 
 # 12. Strength gain ################################################################################
 
