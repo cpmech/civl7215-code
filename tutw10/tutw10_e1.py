@@ -280,18 +280,49 @@ print(f'S  due to load 1 @ t1wait = {S_t1wait:.2f} m')
 # 12. Strength gain ################################################################################
 
 # Compute the strength gain due to consolidation at the end of the wait time of Stage 1
+dcu1 = 0.25 * Uvr1_t1wait * dsigz
+
+# message
+print(f'\n12. Strength gain')
+print(f'dcu due to stage 1 @ t1_wait = {dcu1:.2f} kPa')
 
 # 13. Revised maximum fill height ##################################################################
 
 # Compute the allowed pressure based on the updated foundation undrained strength
+p_allowed = 5.14 * (cu_soil + dcu1) / FS_bearing_cap
+
 # Compute the maximum allowed height of fill
+H_max_calc = p_allowed / gamma_fill
+
 # Round down maximum fill height
+H_max = 8.0 # m
+
+# message
+print(f'\n13. Revised maximum fill height')
+print(f'allowed p   = {p_allowed:.2f} kPa')
+print(f'Hmax (calc) = {H_max_calc:.2f} m')
+print(f'Hmax        = {H_max} m')
 
 # 14. Revised total primary settlement #############################################################
 
 # Compute the total stress increment
+dsigz = gamma_fill * H_max
+
 # Compute the initial and final effective stresses at the mid-depth of the soft soil
+desigz = dsigz # delta effective vertical stress
+esigz_ini = egamma_soil * z_soil
+esigz_fin = esigz_ini + desigz
+
 # Compute the total primary settlement
+S_total = H_soil * Cc_soil * np.log10(esigz_fin / esigz_ini) / (1.0 + e0_soil)
+
+# message
+print(f'\n14. Revised total primary settlement')
+print(f'dsigz     = {dsigz:.2f} kPa')
+print(f'desigz    = {desigz:.2f} kPa')
+print(f'esigz_ini = {esigz_ini:.2f} kPa')
+print(f'esigz_fin = {esigz_fin:.2f} kPa')
+print(f'S_total   = {S_total:.2f} m')
 
 # 15. Data for the second loading stage ############################################################
 
