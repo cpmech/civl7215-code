@@ -60,10 +60,17 @@ print(f'kr     = {kr_soil:.4} m/s')
 
 # 3. Embankment (fill) data ########################################################################
 
-# Height of fill
-# Unit weight
-# Effective cohesion
-# Effective friction angle
+# Height of fill, unit weight, effective cohesion, and effective friction angle
+H_fill = 6.0 # m
+gamma_fill = 19.7 # kN/m³
+c_fill = 0.0 # kPa
+phi_fill = 30.0 # °
+
+print(f'\n3. Embankment (fill) data')
+print(f'H     = {H_fill} m')
+print(f'gamma = {gamma_fill} kN/m³')
+print(f'c     = {c_fill} kPa')
+print(f'phi   = {phi_fill} °')
 
 # 4. Pre-fabricated drains (PVD) ###################################################################
 
