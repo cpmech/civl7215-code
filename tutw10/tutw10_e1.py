@@ -2,14 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize as opt
 
-# 1. Set up some constants #########################################################################
+# 0. Set up some constants #########################################################################
 
 # pi, unit weight of water, and number of seconds in day
 pi = np.pi # [-]
 gamma_water = 9.8 # kN/m³
 secs_per_day = 24 * 60 * 60.0 # [-]
  
-# 2. Soil foundation data ##########################################################################
+# 1. Soil foundation data ##########################################################################
  
 # Thickness of clay layer, OCR, undrained strength
 H_soil = 6.0 # m
@@ -43,7 +43,7 @@ kv_soil = cv_soil * mv_soil * gamma_water
 kr_soil = 2.5 * kv_soil
 
 # message
-print(f'\n2. Soil foundation data')
+print(f'\n1. Soil foundation data')
 print(f'H      = {H_soil} m')
 print(f'OCR    = {OCR_soil} [-]')
 print(f'cu     = {cu_soil} kPa')
@@ -58,7 +58,7 @@ print(f'mv     = {mv_soil:.6f} kPa⁻¹')
 print(f'kv     = {kv_soil:.4} m/s')
 print(f'kr     = {kr_soil:.4} m/s')
 
-# 3. Embankment (fill) data ########################################################################
+# 2. Embankment (fill) data ########################################################################
 
 # Height of fill, unit weight, effective cohesion, and effective friction angle
 H_fill = 6.0 # m
@@ -67,13 +67,13 @@ c_fill = 0.0 # kPa
 phi_fill = 30.0 # °
 
 # message
-print(f'\n3. Embankment (fill) data')
+print(f'\n2. Embankment (fill) data')
 print(f'H     = {H_fill} m')
 print(f'gamma = {gamma_fill} kN/m³')
 print(f'c     = {c_fill} kPa')
 print(f'phi   = {phi_fill} °')
 
-# 4. Pre-fabricated drains (PVD) ###################################################################
+# 3. Pre-fabricated drains (PVD) ###################################################################
 
 # Width (b) and thickness (tg)
 b_drain = 100.0 # mm
@@ -93,12 +93,12 @@ de_drain = 1.06 * spacing_drain
 Nd_drain = de_drain / dc_drain
 
 # message
-print(f'\n4. Pre-fabricated drains (PVD)')
-print(f'equivalent diameter of drain:  dc = {dc_drain:.4f} m')
-print(f'equivalent influence diameter: de = {de_drain} m')
-print(f'diameter ratio:                Nd = {Nd_drain:.2f}')
+print(f'\n3. Pre-fabricated drains (PVD)')
+print(f'dc = {dc_drain:.4f} m')
+print(f'de = {de_drain} m')
+print(f'Nd = {Nd_drain:.2f}')
 
-# 5. Geotechnical problem ##########################################################################
+# 4. Geotechnical problem ##########################################################################
 
 # Factor of safety for bearing capacity
 FS_bearing_cap = 1.3 # [-]
@@ -122,7 +122,7 @@ aux = pi * z_soil * (2*hdr_soil - z_soil) * kr_soil / Qc_drain
 Fm = np.log(Nd_drain) - 0.75 + aux
 
 # message
-print(f'\n5. Geotechnical problem')
+print(f'\n4. Geotechnical problem')
 print(f'FS           = {FS_bearing_cap} [-]')
 print(f'hdr          = {hdr_soil} m')
 print(f'z            = {z_soil} m')
@@ -131,7 +131,7 @@ print(f'bv           = {bv:.2e} [-]')
 print(f'br           = {br:.2e} [-]')
 print(f'Fm           = {Fm:.2f}')
 
-# 6. Functions #####################################################################################
+# 5. Functions #####################################################################################
 
 # Define a function to calculate Uv
 def calc_Uv(tau):
@@ -156,7 +156,11 @@ def calc_resid_one(tau):
     return Uvr_fixed - 1.0 + (1.0-Uv) * (1.0-Ur)
 calc_resid_vector = np.vectorize(calc_resid_one)
 
-# 7. Maximum fill height ###########################################################################
+# message
+print(f'\n5. Functions')
+print('done')
+
+# 6. Maximum fill height ###########################################################################
 
 # Compute the allowed pressure based on the foundation undrained strength
 p_allowed = 5.14 * cu_soil / FS_bearing_cap
@@ -168,12 +172,12 @@ H_max_calc = p_allowed / gamma_fill
 H_max = 4.5 # m
 
 # message
-print(f'\n7. Maximum fill height')
+print(f'\n6. Maximum fill height')
 print(f'allowed p   = {p_allowed:.2f} kPa')
 print(f'Hmax (calc) = {H_max_calc:.2f} m')
 print(f'Hmax        = {H_max} m')
  
-# 8. Total primary settlement ######################################################################
+# 7. Total primary settlement ######################################################################
 
 # Compute the total stress increment
 dsigz = gamma_fill * H_max # kPa
@@ -189,14 +193,13 @@ esigz_fin = esigz_ini + desigz
 S_total = H_soil * Cc_soil * np.log10(esigz_fin / esigz_ini) / (1.0 + e0_soil)
 
 # message
-print(f'\n8. Total primary settlement')
-print(f'dsigz     = {dsigz:.2f} kPa')
+print(f'\n7. Total primary settlement')
 print(f'desigz    = {desigz:.2f} kPa')
 print(f'esigz_ini = {esigz_ini:.2f} kPa')
 print(f'esigz_fin = {esigz_fin:.2f} kPa')
 print(f'S_total   = {S_total:.2f} m')
  
-# 9. Data for the first loading stage ##############################################################
+# 8. Data for the first loading stage ##############################################################
 
 # Choose height of the fill for the first loading stage
 H1 = 4.5 # m
@@ -214,13 +217,13 @@ dt1 = (t1ini + t1fin) / 2.0 # secs
 tau1_t1fin = t1fin - dt1 # secs
 
 # message
-print(f'\n9. Data for the first loading stage')
+print(f'\n8. Data for the first loading stage')
 print(f'height of fill, H1    = {H1} m')
 print(f'construction time     = {period1} days')
 print(f'time at the beginning = {t1ini/secs_per_day} days')
 print(f'time at the end of    = {t1fin/secs_per_day} days')
 
-# 10. Consolidation settlement at the end of construction (Stage 1) ################################
+# 9. Consolidation settlement at the end of construction (Stage 1) #################################
 
 # Compute the degrees of consolidation due to Stage 1 at the end of construction of Stage 1
 Uv1_t1fin = calc_Uv(tau1_t1fin)
@@ -235,7 +238,7 @@ u1_t1fin = u1_ini * (1.0 - Uvr1_t1fin)
 S_t1fin = Uvr1_t1fin * S_total
 
 # message
-print(f'\n10. Consolidation settlement at the end of construction (Stage 1)')
+print(f'\n9. Consolidation settlement at the end of construction (Stage 1)')
 print(f'Uv    of stage 1 @ t1fin = {Uv1_t1fin*100:.2f} %')
 print(f'Ur    of stage 1 @ t1fin = {Ur1_t1fin*100:.2f} %')
 print(f'Uvr   of stage 1 @ t1fin = {Uvr1_t1fin*100:.2f} %')
@@ -243,7 +246,7 @@ print(f'u1 due to load 1 @ t1ini = {u1_ini:.2f} kPa')
 print(f'u1 due to load 1 @ t1fin = {u1_t1fin:.2f} kPa')
 print(f'S  due to load 1 @ t1fin = {S_t1fin:.2f} m')
 
-# 11. Consolidation settlement at the end of the waiting period (Stage 1) ##########################
+# 10. Consolidation settlement at the end of the waiting period (Stage 1) ##########################
 
 # Find tau such that 80% consolidation (Uvr = 0.8) has occurred
 tau1_tlong = tau1_t1fin + 365 * secs_per_day
@@ -269,7 +272,7 @@ u1_t1wait = u1_ini * (1.0 - Uvr1_t1wait)
 S_t1wait = Uvr1_t1wait * S_total
 
 # message
-print(f'\n11. Consolidation settlement at the end of the waiting period (Stage 1)')
+print(f'\n10. Consolidation settlement at the end of the waiting period (Stage 1)')
 print(f't1wait                    = {t1wait_days} days')
 print(f'Uv    of stage 1 @ t1wait = {Uv1_t1wait*100:.2f} %')
 print(f'Ur    of stage 1 @ t1wait = {Ur1_t1wait*100:.2f} %')
@@ -277,16 +280,16 @@ print(f'Uvr   of stage 1 @ t1wait = {Uvr1_t1wait*100:.2f} %')
 print(f'u1 due to load 1 @ t1wait = {u1_t1wait:.2f} kPa')
 print(f'S  due to load 1 @ t1wait = {S_t1wait:.2f} m')
 
-# 12. Strength gain ################################################################################
+# 11. Strength gain ################################################################################
 
 # Compute the strength gain due to consolidation at the end of the wait time of Stage 1
 dcu1 = 0.25 * Uvr1_t1wait * dsigz
 
 # message
-print(f'\n12. Strength gain')
+print(f'\n11. Strength gain')
 print(f'dcu due to stage 1 @ t1_wait = {dcu1:.2f} kPa')
 
-# 13. Revised maximum fill height ##################################################################
+# 12. Revised maximum fill height ##################################################################
 
 # Compute the allowed pressure based on the updated foundation undrained strength
 p_allowed = 5.14 * (cu_soil + dcu1) / FS_bearing_cap
@@ -298,12 +301,12 @@ H_max_calc = p_allowed / gamma_fill
 H_max = 8.0 # m
 
 # message
-print(f'\n13. Revised maximum fill height')
+print(f'\n12. Revised maximum fill height')
 print(f'allowed p   = {p_allowed:.2f} kPa')
 print(f'Hmax (calc) = {H_max_calc:.2f} m')
 print(f'Hmax        = {H_max} m')
 
-# 14. Revised total primary settlement #############################################################
+# 13. Revised total primary settlement #############################################################
 
 # Compute the total stress increment
 dsigz = gamma_fill * H_max
@@ -317,14 +320,13 @@ esigz_fin = esigz_ini + desigz
 S_total = H_soil * Cc_soil * np.log10(esigz_fin / esigz_ini) / (1.0 + e0_soil)
 
 # message
-print(f'\n14. Revised total primary settlement')
-print(f'dsigz     = {dsigz:.2f} kPa')
+print(f'\n13. Revised total primary settlement')
 print(f'desigz    = {desigz:.2f} kPa')
 print(f'esigz_ini = {esigz_ini:.2f} kPa')
 print(f'esigz_fin = {esigz_fin:.2f} kPa')
 print(f'S_total   = {S_total:.2f} m')
 
-# 15. Data for the second loading stage ############################################################
+# 14. Data for the second loading stage ############################################################
 
 # Choose height of the fill for the second loading stage
 H2 = H_max - H1
@@ -342,13 +344,13 @@ dt2 = (t2ini + t2fin) / 2.0 # secs
 tau2_t2fin = t2fin - dt2 # secs
 
 # message
-print(f'\n15. Data for the second loading stage')
+print(f'\n14. Data for the second loading stage')
 print(f'height of fill, H2    = {H2} m')
 print(f'construction time     = {period2} days')
 print(f'time at the beginning = {t2ini/secs_per_day} days')
 print(f'time at the end of    = {t2fin/secs_per_day} days')
  
-# 17. Consolidation settlement at the end of construction (Stage 2) ################################
+# 15. Consolidation settlement at the end of construction (Stage 2) ################################
 
 # Compute the degrees of consolidation due to Stage 1 at the end of construction of Stage 2
 # Compute the degrees of consolidation due to Stage 2 at the end of construction of Stage 2
@@ -357,7 +359,7 @@ print(f'time at the end of    = {t2fin/secs_per_day} days')
 # Compute the overall degree of consolidation due to Stage 1 and Stage 2
 # Compute the consolidation settlement at the end of construction of Stage 2
 
-# 18. Consolidation settlement at the end of the waiting period (Stage 2) ##########################
+# 16. Consolidation settlement at the end of the waiting period (Stage 2) ##########################
 
 # Set time at the end of the wait period of Stage 2 as the final allowed time (1 year)
 # Compute $\tau$ at the final time
@@ -368,7 +370,7 @@ print(f'time at the end of    = {t2fin/secs_per_day} days')
 # Compute the overall degree of consolidation due to Stage 1 and Stage 2
 # Compute the consolidation settlement at the end of the wait time of Stage 2
 
-# 19. Post-construction settlement #################################################################
+# 17. Post-construction settlement #################################################################
 
 # Compute the remaining settlement
 # Find $t$ corresponding to 99% consolidation (Uvr = 0.99)
@@ -376,7 +378,7 @@ print(f'time at the end of    = {t2fin/secs_per_day} days')
 # Compute the secondary settlement
 # Compute the post-construction settlement
  
-# 20. Plots ########################################################################################
+# 18. Plots ########################################################################################
 
 # Plot the fill height versus time
 # Plot the settlement versus time
