@@ -397,18 +397,52 @@ print(f'S   of stage 1 and 2 @ t2fin = {S_t2fin:.2f} m')
 # 16. Consolidation settlement at the end of the waiting period (Stage 2) ##########################
 
 # Set time at the end of the wait period of Stage 2 as the final allowed time (1 year)
-# Compute $\tau$ at the final time
+t2wait = 365 * secs_per_day
+
+# Compute tau at the final time
+tau2_t2wait = t2wait - dt2
+
 # Compute the degrees of consolidation due to Stage 1 at the end of wait time of Stage 2
+tau1_t2wait = t2wait - dt1
+Uv1_t2wait = calc_Uv(tau1_t2wait)
+Ur1_t2wait = calc_Ur(tau1_t2wait)
+Uvr1_t2wait = calc_Uvr(Uv1_t2wait, Ur1_t2wait)
+
 # Compute the degrees of consolidation due to Stage 2 at the end of wait time of Stage 2
+Uv2_t2wait = calc_Uv(tau2_t2wait)
+Ur2_t2wait = calc_Ur(tau2_t2wait)
+Uvr2_t2wait = calc_Uvr(Uv2_t2wait, Ur2_t2wait)
+
 # Compute the excess pore water pressure due to Stage 1 at the end of wait time of Stage 2
+u1_t2wait = u1_t1ini * (1.0 - Uvr1_t2wait)
+
 # Compute the excess pore-water pressure due Stage 2 at the end of wait time of Stage 2
+u2_t2wait = u2_t2ini * (1.0 - Uvr2_t2wait)
+
 # Compute the overall degree of consolidation due to Stage 1 and Stage 2
+sum_ut2wait = u1_t2wait + u2_t2wait
+Uvr_t2wait = 1.0 - sum_ut2wait / sum_uini
+
 # Compute the consolidation settlement at the end of the wait time of Stage 2
+S_t2wait = Uvr_t2wait * S_total
+
+print(f'\n16. Consolidation settlement at the end of the waiting period (Stage 2)')
+print(f't2wait                        = {t2wait/secs_per_day} days')
+print(f'Uv        of stage 1 @ t2wait = {Uv1_t2wait*100:.2f} %')
+print(f'Ur        of stage 1 @ t2wait = {Ur1_t2wait*100:.2f} %')
+print(f'Uvr       of stage 1 @ t2wait = {Uvr1_t2wait*100:.2f} %')
+print(f'Uv        of stage 2 @ t2wait = {Uv2_t2wait*100:.2f} %')
+print(f'Ur        of stage 2 @ t2wait = {Ur2_t2wait*100:.2f} %')
+print(f'Uvr       of stage 2 @ t2wait = {Uvr2_t2wait*100:.2f} %')
+print(f'u1     due to load 1 @ t2wait = {u1_t2wait:.2f} kPa')
+print(f'u2     due to load 2 @ t2wait = {u2_t2wait:.2f} kPa')
+print(f'Uvr of stage 1 and 2 @ t2wait = {Uvr_t2wait*100:.2f} %')
+print(f'S   of stage 1 and 2 @ t2wait = {S_t2wait:.2f} m')
 
 # 17. Post-construction settlement #################################################################
 
 # Compute the remaining settlement
-# Find $t$ corresponding to 99% consolidation (Uvr = 0.99)
+# Find t corresponding to 99% consolidation (Uvr = 0.99)
 # Compute the settlement due to traffic loading
 # Compute the secondary settlement
 # Compute the post-construction settlement
